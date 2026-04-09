@@ -45,11 +45,12 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 
 ### Prerequisites
 
-- 🖥️ **Operating System**: Linux (recommended)
+- 🖥️ **Operating System**: Linux (recommended), Apple Silicon macOS (experimental inference only)
 - 🐍 **Python**: 3.12+ (recommended and tested)
 - ⚡ **CUDA**: 12.6
 - 🔥 **PyTorch**: 2.8.0
 - 🎮 **GPU**: NVIDIA GPU with CUDA support
+- 🍎 **Apple Silicon**: Experimental PyTorch MPS inference is also supported through the provided runtime compatibility shim in `mps_compat.py`
 
 ### Installation
 
@@ -64,6 +65,8 @@ pip install git+https://github.com/huggingface/transformers@9293856c419762ebf98f
 ```bash
 pip install -r requirements.txt
 ```
+
+> **Apple Silicon note**: on macOS, `flash_attn` is skipped automatically by `requirements.txt`, and the demo script enables an experimental MPS fallback path.
 
 ### Quick Start
 
@@ -103,13 +106,20 @@ The code automatically downloads the model `tencent/HY-Embodied-0.5` from Huggin
 ```python
 import os
 import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
+from mps_compat import enable_hunyuan_mps_support, get_default_device, get_default_dtype
 
 # Load model & processor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
-DEVICE = "cuda"
+DEVICE = get_default_device()
+DTYPE = get_default_dtype(DEVICE)
 THINKING_MODE = False
 TEMPERATURE = 0.8
+
+if DEVICE == "mps":
+    os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+    enable_hunyuan_mps_support()
+
+from transformers import AutoModelForImageTextToText, AutoProcessor
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
@@ -118,7 +128,7 @@ chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
 if os.path.exists(chat_template_path):
     processor.chat_template = open(chat_template_path).read()
 
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=torch.bfloat16)
+model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=DTYPE)
 model.to(DEVICE).eval()
 
 # Prepare input messages
@@ -160,13 +170,20 @@ print(processor.batch_decode(output_ids, skip_special_tokens=True)[0])
 ```python
 import os
 import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
+from mps_compat import enable_hunyuan_mps_support, get_default_device, get_default_dtype
 
 # Load model & processor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
-DEVICE = "cuda"
+DEVICE = get_default_device()
+DTYPE = get_default_dtype(DEVICE)
 THINKING_MODE = False
 TEMPERATURE = 0.8
+
+if DEVICE == "mps":
+    os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+    enable_hunyuan_mps_support()
+
+from transformers import AutoModelForImageTextToText, AutoProcessor
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
@@ -175,7 +192,7 @@ chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
 if os.path.exists(chat_template_path):
     processor.chat_template = open(chat_template_path).read()
 
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=torch.bfloat16)
+model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=DTYPE)
 model.to(DEVICE).eval()
 
 # Batch Inference (multiple prompts at once)

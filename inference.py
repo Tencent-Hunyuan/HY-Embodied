@@ -1,13 +1,21 @@
 import os
 import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
+
+from mps_compat import enable_hunyuan_mps_support, get_default_device, get_default_dtype
 
 # Configuration
 MODEL_PATH = "tencent/HY-Embodied-0.5"
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+DEVICE = get_default_device()
+MODEL_DTYPE = get_default_dtype(DEVICE)
 THINKING_MODE = False
 TEMPERATURE = 0.8
 MAX_NEW_TOKENS = 1024
+
+if DEVICE == "mps":
+    os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+    enable_hunyuan_mps_support()
+
+from transformers import AutoModelForImageTextToText, AutoProcessor
 
 def load_model_and_processor():
     """Load model and processor with proper configuration."""
@@ -20,7 +28,7 @@ def load_model_and_processor():
 
     model = AutoModelForImageTextToText.from_pretrained(
         MODEL_PATH,
-        torch_dtype=torch.bfloat16
+        torch_dtype=MODEL_DTYPE
     )
     model.to(DEVICE).eval()
 
