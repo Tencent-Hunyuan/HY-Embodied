@@ -3,10 +3,12 @@
 <p><b>A Family of Embodied Foundation Models for Real-World Agents</b></p>
 <p><i>Tencent Robotics X × HY Vision Team</i></p>
 
-<a href="https://arxiv.org"><img src="https://img.shields.io/badge/Paper-Arxiv-red?logo=arxiv" alt="Paper"></a>
+<a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/Paper-Arxiv-red?logo=report" alt="Tech Report"></a>
 <a href="https://huggingface.co/tencent/HY-Embodied-0.5/tree/main"><img src="https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface" alt="Models"></a>
 
 </div>
+
+https://github.com/user-attachments/assets/a5c6b872-2cb0-4f52-8321-894fee7da27e
 
 ## 🔥 Updates
 
@@ -278,7 +280,7 @@ for i, msgs in enumerate(messages_batch):
 
 ## 📚 Citation
 
-*Citation information will be available upon publication. Please check back for updates.*
+*Citation information will be available soon. Please check back for updates.*
 
 ## 🙏 Acknowledgements
 
