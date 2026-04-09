@@ -45,12 +45,12 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 
 ### Prerequisites
 
-- 🖥️ **Operating System**: Linux (recommended), Apple Silicon macOS (experimental inference only)
+- 🖥️ **Operating System**: Linux (recommended), Apple Silicon macOS (inference supported)
 - 🐍 **Python**: 3.12+ (recommended and tested)
 - ⚡ **CUDA**: 12.6
 - 🔥 **PyTorch**: 2.8.0
 - 🎮 **GPU**: NVIDIA GPU with CUDA support
-- 🍎 **Apple Silicon**: Experimental PyTorch MPS inference is also supported through the provided runtime compatibility shim in `mps_compat.py`
+- 🍎 **Apple Silicon**: PyTorch MPS inference is supported through the provided runtime compatibility shim in `mps_compat.py`
 
 ### Installation
 
@@ -66,7 +66,7 @@ pip install git+https://github.com/huggingface/transformers@9293856c419762ebf98f
 pip install -r requirements.txt
 ```
 
-> **Apple Silicon note**: on macOS, `flash_attn` is skipped automatically by `requirements.txt`, and the demo script enables an experimental MPS fallback path.
+> **Apple Silicon note**: on macOS, `flash_attn` is skipped automatically by `requirements.txt`, and the demo script enables the MPS compatibility path automatically.
 
 ### Quick Start
 
