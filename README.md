@@ -3,7 +3,7 @@
 <p><b>A Family of Embodied Foundation Models for Real-World Agents</b></p>
 <p><i>Tencent Robotics X × HY Vision Team</i></p>
 
-<a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/Paper-Arxiv-red?logo=report" alt="Tech Report"></a>
+<a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/Paper-Report-red?logo=report" alt="Tech Report"></a>
 <a href="https://huggingface.co/tencent/HY-Embodied-0.5/tree/main"><img src="https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface" alt="Models"></a>
 
 </div>
