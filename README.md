@@ -240,7 +240,6 @@ for i, msgs in enumerate(messages_batch):
 ### Visual Perception
 
 > **Note**: We evaluated HY-Embodied-0.5 MoT-2B across 22 embodied-relevant benchmarks against models of similar size. For detailed performance metrics and methodology, please refer to our technical report.
-> **Note**: We observed that small models from the Qwen3.5 series produce repetitive thinking patterns in some benchmarks, which leads to lower overall results. Therefore, we compare against Qwen3-VL models in our evaluations.
 
 | Benchmark | HY-Embodied 0.5 MoT-2B | Qwen3-VL 2B | Qwen3-VL 4B | RoboBrain 2.5 4B | MiMo-Embodied 7B |
 |-----------|------------------------|-------------|-------------|------------------|------------------|
