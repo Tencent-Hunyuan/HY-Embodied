@@ -6,8 +6,8 @@ from transformers import AutoModelForImageTextToText, AutoProcessor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 THINKING_MODE = False
-TEMPERATURE = 0
-MAX_NEW_TOKENS = 32768
+TEMPERATURE = 0.8
+MAX_NEW_TOKENS = 1024
 
 def load_model_and_processor():
     """Load model and processor with proper configuration."""

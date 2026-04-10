@@ -110,7 +110,7 @@ from transformers import AutoModelForImageTextToText, AutoProcessor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
 DEVICE = "cuda"
 THINKING_MODE = False
-TEMPERATURE = 0
+TEMPERATURE = 0.8
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
@@ -167,7 +167,7 @@ from transformers import AutoModelForImageTextToText, AutoProcessor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
 DEVICE = "cuda"
 THINKING_MODE = False
-TEMPERATURE = 0
+TEMPERATURE = 0.8
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
