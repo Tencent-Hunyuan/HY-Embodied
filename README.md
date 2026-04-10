@@ -112,7 +112,6 @@ from mps_compat import enable_hunyuan_mps_support, get_default_device, get_defau
 MODEL_PATH = "tencent/HY-Embodied-0.5"
 DEVICE = get_default_device()
 DTYPE = get_default_dtype(DEVICE)
-THINKING_MODE = False
 TEMPERATURE = 0.8
 
 if DEVICE == "mps":
@@ -128,7 +127,7 @@ chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
 if os.path.exists(chat_template_path):
     processor.chat_template = open(chat_template_path).read()
 
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=DTYPE)
+model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, dtype=DTYPE)
 model.to(DEVICE).eval()
 
 # Prepare input messages
@@ -149,7 +148,6 @@ inputs = processor.apply_chat_template(
     add_generation_prompt=True,
     return_dict=True,
     return_tensors="pt",
-    enable_thinking=THINKING_MODE,
 ).to(model.device)
 
 with torch.no_grad():
@@ -176,7 +174,6 @@ from mps_compat import enable_hunyuan_mps_support, get_default_device, get_defau
 MODEL_PATH = "tencent/HY-Embodied-0.5"
 DEVICE = get_default_device()
 DTYPE = get_default_dtype(DEVICE)
-THINKING_MODE = False
 TEMPERATURE = 0.8
 
 if DEVICE == "mps":
@@ -192,7 +189,7 @@ chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
 if os.path.exists(chat_template_path):
     processor.chat_template = open(chat_template_path).read()
 
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=DTYPE)
+model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, dtype=DTYPE)
 model.to(DEVICE).eval()
 
 # Batch Inference (multiple prompts at once)
@@ -224,11 +221,10 @@ for msgs in messages_batch:
     inp = processor.apply_chat_template(
         msgs,
         tokenize=True,
-        add_generation_prompt=True,
-        return_dict=True,
-        return_tensors="pt",
-        enable_thinking=THINKING_MODE,
-    )
+    add_generation_prompt=True,
+    return_dict=True,
+    return_tensors="pt",
+)
     all_inputs.append(inp)
 
 # Left-pad and batch

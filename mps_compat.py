@@ -1,4 +1,4 @@
-"""Experimental Apple Silicon / PyTorch MPS compatibility helpers."""
+"""Apple Silicon / PyTorch MPS compatibility helpers."""
 
 from __future__ import annotations
 
@@ -101,6 +101,10 @@ def _install_flash_attn_fallback() -> None:
     module = types.ModuleType("flash_attn")
     module.flash_attn_func = _flash_attn_func_fallback
     module.flash_attn_varlen_func = _flash_attn_varlen_func_fallback
+    # Provide a proper ModuleSpec so importlib.util.find_spec() does not raise
+    # ValueError and transformers' is_flash_attn_2_available() works cleanly.
+    module.__spec__ = importlib.machinery.ModuleSpec("flash_attn", None)
+    module.__version__ = "2.8.3"
     sys.modules["flash_attn"] = module
 
 

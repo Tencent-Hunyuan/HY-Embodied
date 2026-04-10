@@ -1,4 +1,5 @@
 import os
+import inspect
 import torch
 
 from mps_compat import enable_hunyuan_mps_support, get_default_device, get_default_dtype
@@ -17,6 +18,14 @@ if DEVICE == "mps":
 
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
+
+def _apply_chat_template(processor, messages, **kwargs):
+    """Only pass chat template kwargs supported by the installed processor."""
+    params = inspect.signature(processor.apply_chat_template).parameters
+    if "enable_thinking" not in params:
+        kwargs.pop("enable_thinking", None)
+    return processor.apply_chat_template(messages, **kwargs)
+
 def load_model_and_processor():
     """Load model and processor with proper configuration."""
     processor = AutoProcessor.from_pretrained(MODEL_PATH)
@@ -28,7 +37,7 @@ def load_model_and_processor():
 
     model = AutoModelForImageTextToText.from_pretrained(
         MODEL_PATH,
-        torch_dtype=MODEL_DTYPE
+        dtype=MODEL_DTYPE
     )
     model.to(DEVICE).eval()
 
@@ -46,7 +55,8 @@ def single_inference(model, processor, image_path, text_prompt):
         }
     ]
 
-    inputs = processor.apply_chat_template(
+    inputs = _apply_chat_template(
+        processor,
         messages,
         tokenize=True,
         add_generation_prompt=True,
@@ -72,7 +82,8 @@ def batch_inference(model, processor, messages_batch):
     # Process each message independently
     all_inputs = []
     for msgs in messages_batch:
-        inp = processor.apply_chat_template(
+        inp = _apply_chat_template(
+            processor,
             msgs,
             tokenize=True,
             add_generation_prompt=True,
