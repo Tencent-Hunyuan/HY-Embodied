@@ -1,6 +1,6 @@
 <div align="center">
-<h1>HY-Embodied</h1>
-<p><b>A Family of Embodied Foundation Models for Real-World Agents</b></p>
+<h1>HY-Embodied-MPS</h1>
+<p><b>Apple Silicon / PyTorch MPS Fork of HY-Embodied</b></p>
 <p><i>Tencent Robotics X × HY Vision Team</i></p>
 
 <a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/PDF-Report-green?logo=report" alt="Tech Report"></a>
@@ -10,6 +10,9 @@
 </div>
 
 https://github.com/user-attachments/assets/a5c6b872-2cb0-4f52-8321-894fee7da27e
+
+> This repository is the Apple Silicon / PyTorch MPS fork of [Tencent-Hunyuan/HY-Embodied](https://github.com/Tencent-Hunyuan/HY-Embodied).
+> The default branch contains the MPS-enabled inference path. The original upstream snapshot is kept on the `master` branch.
 
 ## 🔥 Updates
 
@@ -46,11 +49,12 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 
 ### Prerequisites
 
-- 🖥️ **Operating System**: Linux (recommended)
+- 🖥️ **Operating System**: Apple Silicon macOS (recommended in this fork), Linux/CUDA also supported
 - 🐍 **Python**: 3.12+ (recommended and tested)
-- ⚡ **CUDA**: 12.6
-- 🔥 **PyTorch**: 2.8.0
-- 🎮 **GPU**: NVIDIA GPU with CUDA support
+- 🔥 **PyTorch**: 2.11.0 tested on Apple Silicon
+- 🍎 **Apple Silicon**: PyTorch MPS inference is supported through `mps_compat.py`
+- ⚡ **CUDA**: 12.6 for the original CUDA path
+- 🎮 **GPU**: NVIDIA GPU with CUDA support for the original CUDA path
 
 ### Installation
 
@@ -66,12 +70,16 @@ pip install git+https://github.com/huggingface/transformers@9293856c419762ebf98f
 pip install -r requirements.txt
 ```
 
+> **Apple Silicon note**: on macOS, `flash_attn` is skipped automatically by `requirements.txt`, and the demo script enables the MPS compatibility path automatically.
+
+> **Upstream note**: if you want the original upstream layout without the MPS-first defaults in this fork, switch to the `master` branch.
+
 ### Quick Start
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/Tencent-Hunyuan/HY-Embodied
-cd HY-Embodied/
+git clone https://github.com/kellyvv/HY-Embodied-MPS
+cd HY-Embodied-MPS/
 ```
 
 2. **Install dependencies:**
@@ -92,9 +100,10 @@ The code automatically downloads the model `tencent/HY-Embodied-0.5` from Huggin
 
 ### Hardware Requirements
 
-- **GPU**: Recommended for optimal performance (NVIDIA GPU with at least 16GB VRAM)
+- **Apple Silicon**: Recommended in this fork
+- **GPU**: NVIDIA GPU with at least 16GB VRAM for the original CUDA path
 - **CPU**: Supported but slower
-- **Memory**: At least 16GB RAM recommended
+- **Memory**: At least 16GB RAM recommended, 32GB+ preferred for Apple Silicon
 - **Storage**: 20GB+ free space for model and dependencies
 
 ## 🚀 Quick Start with Transformers
@@ -104,13 +113,19 @@ The code automatically downloads the model `tencent/HY-Embodied-0.5` from Huggin
 ```python
 import os
 import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
+from mps_compat import enable_hunyuan_mps_support, get_default_device, get_default_dtype
 
 # Load model & processor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
-DEVICE = "cuda"
-THINKING_MODE = False
+DEVICE = get_default_device()
+DTYPE = get_default_dtype(DEVICE)
 TEMPERATURE = 0.8
+
+if DEVICE == "mps":
+    os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+    enable_hunyuan_mps_support()
+
+from transformers import AutoModelForImageTextToText, AutoProcessor
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
@@ -119,7 +134,7 @@ chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
 if os.path.exists(chat_template_path):
     processor.chat_template = open(chat_template_path).read()
 
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=torch.bfloat16)
+model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, dtype=DTYPE)
 model.to(DEVICE).eval()
 
 # Prepare input messages
@@ -140,7 +155,6 @@ inputs = processor.apply_chat_template(
     add_generation_prompt=True,
     return_dict=True,
     return_tensors="pt",
-    enable_thinking=THINKING_MODE,
 ).to(model.device)
 
 with torch.no_grad():
@@ -161,13 +175,19 @@ print(processor.batch_decode(output_ids, skip_special_tokens=True)[0])
 ```python
 import os
 import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
+from mps_compat import enable_hunyuan_mps_support, get_default_device, get_default_dtype
 
 # Load model & processor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
-DEVICE = "cuda"
-THINKING_MODE = False
+DEVICE = get_default_device()
+DTYPE = get_default_dtype(DEVICE)
 TEMPERATURE = 0.8
+
+if DEVICE == "mps":
+    os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+    enable_hunyuan_mps_support()
+
+from transformers import AutoModelForImageTextToText, AutoProcessor
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
@@ -176,7 +196,7 @@ chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
 if os.path.exists(chat_template_path):
     processor.chat_template = open(chat_template_path).read()
 
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=torch.bfloat16)
+model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, dtype=DTYPE)
 model.to(DEVICE).eval()
 
 # Batch Inference (multiple prompts at once)
@@ -211,7 +231,6 @@ for msgs in messages_batch:
         add_generation_prompt=True,
         return_dict=True,
         return_tensors="pt",
-        enable_thinking=THINKING_MODE,
     )
     all_inputs.append(inp)
 

@@ -4,5 +4,5 @@ accelerate
 Pillow
 numpy
 tqdm
-flash_attn==2.8.3
+flash_attn==2.8.3; platform_system == "Linux"
 git+https://github.com/huggingface/transformers@9293856c419762ebf98fbe2bd9440f9ce7069f1a
