@@ -3,7 +3,8 @@
 <p><b>A Family of Embodied Foundation Models for Real-World Agents</b></p>
 <p><i>Tencent Robotics X × HY Vision Team</i></p>
 
-<a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/Paper-Report-red?logo=report" alt="Tech Report"></a>
+<a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/PDF-Report-green?logo=report" alt="Tech Report"></a>
+<a href="https://arxiv.org/abs/2604.07430"><img src="https://img.shields.io/badge/Paper-arXiv-red?logo=report" alt="arXiv"></a>
 <a href="https://huggingface.co/tencent/HY-Embodied-0.5/tree/main"><img src="https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface" alt="Models"></a>
 
 </div>
@@ -280,7 +281,16 @@ for i, msgs in enumerate(messages_batch):
 
 ## 📚 Citation
 
-*Citation information will be available soon. Please check back for updates.*
+If you find it useful for your research and applications, please cite our paper using this BibTeX:
+```bibtex
+@article{tencent2026hyembodied05,
+title={HY-Embodied-0.5: Embodied Foundation Models for Real-World Agents},
+author={Tencent Robotics X and HY Vision Team},
+journal={arXiv preprint arXiv:2604.07430},
+year={2026}
+}
+```
+
 
 ## 🙏 Acknowledgements
 
