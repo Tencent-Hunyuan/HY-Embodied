@@ -4,8 +4,9 @@
 <p><i>Tencent Robotics X × HY Vision Team</i></p>
 
 <a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/PDF-Report-green?logo=report" alt="Tech Report"></a>
-<a href="https://arxiv.org/abs/2604.07430"><img src="https://img.shields.io/badge/Paper-arXiv-red?logo=report" alt="arXiv"></a>
+<a href="https://arxiv.org/abs/2604.07430"><img src="https://img.shields.io/badge/Paper-arXiv-red?logo=arxiv" alt="arXiv"></a>
 <a href="https://huggingface.co/tencent/HY-Embodied-0.5/tree/main"><img src="https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface" alt="Models"></a>
+<a href="https://x.com/TencentHunyuan/status/2042503238877135336?s=20"><img src="https://img.shields.io/badge/Post-X-black?logo=x&logoColor=white" alt="X"></a>
 
 </div>
 
@@ -40,6 +41,7 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 
 - [x] Transformers Inference
 - [ ] vLLM Inference
+- [ ] Fine-tuning Code
 - [ ] Online Gradio Demo
 
 ## 🛠️ Dependencies and Installation
