@@ -42,7 +42,7 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 - [x] Transformers Inference
 - [ ] vLLM Inference
 - [ ] Fine-tuning Code
-- [ ] Online Gradio Demo
+- [x] Online Gradio Demo
 
 ## 🛠️ Dependencies and Installation
 
@@ -98,6 +98,82 @@ The code automatically downloads the model `tencent/HY-Embodied-0.5` from Huggin
 - **CPU**: Supported but slower
 - **Memory**: At least 16GB RAM recommended
 - **Storage**: 20GB+ free space for model and dependencies
+
+## 🎨 Gradio Demo
+
+An interactive chat UI with image upload, streaming output, and adjustable generation settings.
+
+### Install
+
+```bash
+pip install "gradio>=4.44"
+```
+
+### Run locally
+
+```bash
+python app.py                          # http://127.0.0.1:7860
+python app.py --share                  # temporary public URL via Gradio
+python app.py --host 0.0.0.0 --port 8080
+MODEL_PATH=/path/to/local python app.py
+```
+
+Features:
+- Upload an image and ask questions in a streaming chat interface
+- **Thinking mode** toggle for step-by-step chain-of-thought reasoning
+- Temperature and max-token sliders
+- Text-only prompts work without an image
+
+## ⚡ Quick Start with vLLM
+
+vLLM provides continuous batching and an OpenAI-compatible serving API.
+The `transformers` backend (vLLM ≥ 0.7) works today without requiring a
+native vLLM model plugin.
+
+### Install
+
+```bash
+pip install "vllm>=0.7"
+pip install git+https://github.com/huggingface/transformers@9293856c419762ebf98fbe2bd9440f9ce7069f1a
+```
+
+### Offline batch inference
+
+```bash
+python inference_vllm.py
+```
+
+### OpenAI-compatible server
+
+```bash
+bash serve_vllm.sh          # listens on http://0.0.0.0:8000
+```
+
+Then query it with any OpenAI-compatible client:
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "tencent/HY-Embodied-0.5",
+    "messages": [
+      {"role": "user", "content": [
+        {"type": "image_url", "image_url": {"url": "https://..."}},
+        {"type": "text", "text": "Describe the image in detail."}
+      ]}
+    ]
+  }'
+```
+
+Override defaults via environment variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `MODEL_PATH` | `tencent/HY-Embodied-0.5` | Local path or HF repo |
+| `PORT` | `8000` | Server port |
+| `MAX_MODEL_LEN` | `4096` | Maximum sequence length |
+| `GPU_MEMORY_UTILIZATION` | `0.90` | Fraction of GPU memory for vLLM |
+| `VLLM_NATIVE` | `0` | Set to `1` to use a native vLLM backend (future) |
 
 ## 🚀 Quick Start with Transformers
 
