@@ -106,7 +106,7 @@ An interactive chat UI with image upload, streaming output, and adjustable gener
 ### Install
 
 ```bash
-pip install "gradio>=4.44"
+pip install "gradio>=4.44"   # Gradio 4.x and 6.x both supported
 ```
 
 ### Run locally

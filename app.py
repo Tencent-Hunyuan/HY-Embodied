@@ -22,6 +22,9 @@ import gradio as gr
 from PIL import Image
 from transformers import AutoModelForImageTextToText, AutoProcessor, TextIteratorStreamer
 
+# Gradio 6 moved several parameters; keep both APIs working.
+_GRADIO_MAJOR = int(gr.__version__.split(".")[0])
+
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
@@ -153,18 +156,27 @@ def respond(
 # ---------------------------------------------------------------------------
 
 def build_demo() -> gr.Blocks:
-    with gr.Blocks(title=TITLE, theme=gr.themes.Soft()) as demo:
+    # gr.Blocks(theme=...) was removed in Gradio 6; pass it to launch() instead.
+    blocks_kwargs = {} if _GRADIO_MAJOR >= 6 else {"theme": gr.themes.Soft()}
+
+    with gr.Blocks(title=TITLE, **blocks_kwargs) as demo:
         gr.Markdown(f"# {TITLE}\n{DESCRIPTION}")
 
         with gr.Row():
             with gr.Column(scale=4):
-                chatbot = gr.Chatbot(
-                    label="Chat",
-                    type="messages",
-                    height=560,
-                    show_copy_button=True,
-                    avatar_images=(None, "figures/teaser.png") if Path("figures/teaser.png").exists() else None,
+                # Gradio 6: type="messages" is now the default and the kwarg was removed.
+                # Gradio 6: show_copy_button replaced by buttons=["copy"].
+                chatbot_kwargs = {"label": "Chat", "height": 560}
+                chatbot_kwargs["avatar_images"] = (
+                    (None, "figures/teaser.png") if Path("figures/teaser.png").exists() else None
                 )
+                if _GRADIO_MAJOR >= 6:
+                    chatbot_kwargs["buttons"] = ["copy"]
+                else:
+                    chatbot_kwargs["type"] = "messages"
+                    chatbot_kwargs["show_copy_button"] = True
+                chatbot = gr.Chatbot(**chatbot_kwargs)
+
                 input_box = gr.MultimodalTextbox(
                     placeholder="Upload an image and ask a question, or type a text-only prompt…",
                     file_types=["image"],
@@ -214,14 +226,13 @@ def build_demo() -> gr.Blocks:
             label="Text-only examples (upload an image to ground them)",
         )
 
-        # Wire up streaming chat
-        chat_interface = gr.ChatInterface(
-            fn=respond,
-            chatbot=chatbot,
-            textbox=input_box,
-            additional_inputs=[temperature, max_new_tokens, thinking_mode],
-            type="messages",
-        )
+        # Wire up streaming chat.
+        # Gradio 6: type="messages" kwarg removed from ChatInterface.
+        ci_kwargs = {"fn": respond, "chatbot": chatbot, "textbox": input_box,
+                     "additional_inputs": [temperature, max_new_tokens, thinking_mode]}
+        if _GRADIO_MAJOR < 6:
+            ci_kwargs["type"] = "messages"
+        gr.ChatInterface(**ci_kwargs)
 
         clear_btn.click(fn=lambda: [], outputs=[chatbot])
 
@@ -242,8 +253,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     demo = build_demo()
-    demo.launch(
-        server_name=args.host,
-        server_port=args.port,
-        share=args.share,
-    )
+    launch_kwargs = dict(server_name=args.host, server_port=args.port, share=args.share)
+    # Gradio 6 moved theme to launch().
+    if _GRADIO_MAJOR >= 6:
+        launch_kwargs["theme"] = gr.themes.Soft()
+    demo.launch(**launch_kwargs)
