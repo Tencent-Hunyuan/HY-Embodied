@@ -1,7 +1,7 @@
 # ── Stage 1: build flash_attn wheel ──────────────────────────────────────────
 # Building flash_attn from source requires CUDA headers and can take 20-40 min.
 # We isolate this cost in a separate builder stage so the final image stays lean.
-FROM nvidia/cuda:12.6.0-cudnn9-devel-ubuntu22.04 AS builder
+FROM nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04 AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
@@ -29,7 +29,7 @@ RUN pip wheel --no-build-isolation --wheel-dir /wheels flash_attn==2.8.3
 
 
 # ── Stage 2: runtime image ────────────────────────────────────────────────────
-FROM nvidia/cuda:12.6.0-cudnn9-runtime-ubuntu22.04
+FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
