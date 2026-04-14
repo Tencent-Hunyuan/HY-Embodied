@@ -40,7 +40,7 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 ## 📅 Plannings
 
 - [x] Transformers Inference
-- [ ] vLLM Inference
+- [x] vLLM Inference (transformers backend; native paged-attention backend is future work)
 - [ ] Fine-tuning Code
 - [ ] Online Gradio Demo
 
@@ -123,6 +123,63 @@ To use a Hugging Face access token (e.g. for gated model variants):
 ```bash
 HF_TOKEN=hf_... docker compose build
 ```
+
+## ⚡ Quick Start with vLLM
+
+vLLM provides continuous batching and an OpenAI-compatible serving API.
+The `transformers` backend (vLLM ≥ 0.7) works today without requiring a
+native vLLM model plugin.
+
+### Install
+
+```bash
+pip install "vllm>=0.7"
+pip install git+https://github.com/huggingface/transformers@9293856c419762ebf98fbe2bd9440f9ce7069f1a
+```
+
+### Offline batch inference
+
+```bash
+python inference_vllm.py
+```
+
+### OpenAI-compatible server
+
+```bash
+bash serve_vllm.sh          # listens on http://0.0.0.0:8000
+```
+
+Then query it with any OpenAI-compatible client:
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "tencent/HY-Embodied-0.5",
+    "messages": [
+      {"role": "user", "content": [
+        {"type": "image_url", "image_url": {"url": "https://..."}},
+        {"type": "text", "text": "Describe the image in detail."}
+      ]}
+    ]
+  }'
+```
+
+Override defaults via environment variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `MODEL_PATH` | `tencent/HY-Embodied-0.5` | Local path or HF repo |
+| `PORT` | `8000` | Server port |
+| `MAX_MODEL_LEN` | `4096` | Maximum sequence length |
+| `GPU_MEMORY_UTILIZATION` | `0.90` | Fraction of GPU memory for vLLM |
+| `VLLM_NATIVE` | `0` | Set to `1` to use a native vLLM backend (future) |
+
+> **Note on native vLLM backend**: `HunYuanVLMoTForConditionalGeneration` uses
+> `flash_attn_varlen_func` directly inside its MoT attention layers, which
+> conflicts with vLLM's paged KV-cache mechanism.  A native integration requires
+> porting that attention path to vLLM's `Attention` module.  The transformers
+> backend provides identical output quality in the meantime.
 
 ## 🚀 Quick Start with Transformers
 
