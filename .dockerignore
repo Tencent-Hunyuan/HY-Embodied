@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Large local assets — model weights should be downloaded at runtime, not baked in.
+*.bin
+*.safetensors
+*.gguf
+*.pt
+*.pth
+
+# Misc
+*.log
+*.tmp
+.DS_Store
+workspace/

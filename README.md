@@ -40,9 +40,9 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 ## 📅 Plannings
 
 - [x] Transformers Inference
-- [ ] vLLM Inference
-- [ ] Fine-tuning Code
-- [ ] Online Gradio Demo
+- [x] vLLM Inference (transformers backend; native paged-attention backend is future work)
+- [x] Fine-tuning Code (LoRA SFT via PEFT)
+- [x] Online Gradio Demo
 
 ## 🛠️ Dependencies and Installation
 
@@ -98,6 +98,165 @@ The code automatically downloads the model `tencent/HY-Embodied-0.5` from Huggin
 - **CPU**: Supported but slower
 - **Memory**: At least 16GB RAM recommended
 - **Storage**: 20GB+ free space for model and dependencies
+
+### Docker (alternative setup)
+
+A pre-configured Docker environment is provided for reproducible setup on any Linux host with an NVIDIA GPU.
+
+**Prerequisites**: [Docker](https://docs.docker.com/get-docker/) and [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).
+
+```bash
+# Build the image (compiles flash_attn from source — takes 20-40 min on first run)
+docker compose build
+
+# Run the bundled inference demo
+docker compose run hy-embodied
+
+# Run a custom script (place it in ./workspace/)
+docker compose run hy-embodied python workspace/my_script.py
+```
+
+Model weights (~8 GB) are downloaded automatically on first run and cached in a named Docker volume so subsequent runs start immediately.
+
+To use a Hugging Face access token (e.g. for gated model variants):
+
+```bash
+HF_TOKEN=hf_... docker compose build
+```
+
+## 🔧 Fine-tuning
+
+LoRA supervised fine-tuning via [PEFT](https://github.com/huggingface/peft).
+
+### Install
+
+```bash
+pip install peft datasets
+```
+
+### Dataset format
+
+One JSON object per line (JSONL). The `"messages"` key follows the same chat format used for inference. See [`data/README.md`](data/README.md) for the full spec and multi-turn / image examples.
+
+### Run
+
+```bash
+# Single GPU
+python finetune.py \
+    --model_path tencent/HY-Embodied-0.5 \
+    --data_path data/train.jsonl \
+    --output_dir checkpoints/my-run \
+    --num_train_epochs 3 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 8 \
+    --learning_rate 2e-4 \
+    --bf16 true \
+    --logging_steps 10 \
+    --save_steps 200
+
+# Multi-GPU
+accelerate launch --num_processes 4 finetune.py \
+    --model_path tencent/HY-Embodied-0.5 \
+    --data_path data/train.jsonl \
+    --output_dir checkpoints/my-run
+```
+
+### Key options
+
+| Flag | Default | Description |
+|---|---|---|
+| `--lora_r` | `64` | LoRA rank |
+| `--lora_alpha` | `128` | LoRA alpha |
+| `--freeze_vision_tower` | `true` | Freeze the ViT encoder |
+| `--train_projector` | `false` | Also fine-tune the vision→text projector |
+| `--max_seq_len` | `2048` | Skip examples longer than this |
+| `--enable_thinking` | `false` | Enable chain-of-thought in the chat template |
+
+### Architecture note
+
+HY-Embodied's MoT decoder has **dual projection paths per layer** — separate text and vision Q/K/V/O projections and MLPs. LoRA is applied to both paths (`q_proj`, `q_proj_v`, `gate_proj` inside both `mlp` and `mlp_v`, etc.), covering the full MoT parameter space.
+
+## 🎨 Gradio Demo
+
+An interactive chat UI with image upload, streaming output, and adjustable generation settings.
+
+### Install
+
+```bash
+pip install "gradio>=4.44"
+```
+
+### Run locally
+
+```bash
+python app.py                          # http://127.0.0.1:7860
+python app.py --share                  # temporary public URL via Gradio
+python app.py --host 0.0.0.0 --port 8080
+MODEL_PATH=/path/to/local python app.py
+```
+
+Features:
+- Upload an image and ask questions in a streaming chat interface
+- **Thinking mode** toggle for step-by-step chain-of-thought reasoning
+- Temperature and max-token sliders
+- Text-only prompts work without an image
+
+## ⚡ Quick Start with vLLM
+
+vLLM provides continuous batching and an OpenAI-compatible serving API.
+The `transformers` backend (vLLM ≥ 0.7) works today without requiring a
+native vLLM model plugin.
+
+### Install
+
+```bash
+pip install "vllm>=0.7"
+pip install git+https://github.com/huggingface/transformers@9293856c419762ebf98fbe2bd9440f9ce7069f1a
+```
+
+### Offline batch inference
+
+```bash
+python inference_vllm.py
+```
+
+### OpenAI-compatible server
+
+```bash
+bash serve_vllm.sh          # listens on http://0.0.0.0:8000
+```
+
+Then query it with any OpenAI-compatible client:
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "tencent/HY-Embodied-0.5",
+    "messages": [
+      {"role": "user", "content": [
+        {"type": "image_url", "image_url": {"url": "https://..."}},
+        {"type": "text", "text": "Describe the image in detail."}
+      ]}
+    ]
+  }'
+```
+
+Override defaults via environment variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `MODEL_PATH` | `tencent/HY-Embodied-0.5` | Local path or HF repo |
+| `PORT` | `8000` | Server port |
+| `MAX_MODEL_LEN` | `4096` | Maximum sequence length |
+| `GPU_MEMORY_UTILIZATION` | `0.90` | Fraction of GPU memory for vLLM |
+| `VLLM_NATIVE` | `0` | Set to `1` to use a native vLLM backend (future) |
+
+> **Note on native vLLM backend**: `HunYuanVLMoTForConditionalGeneration` uses
+> `flash_attn_varlen_func` directly inside its MoT attention layers, which
+> conflicts with vLLM's paged KV-cache mechanism.  A native integration requires
+> porting that attention path to vLLM's `Attention` module.  The transformers
+> backend provides identical output quality in the meantime.
 
 ## 🚀 Quick Start with Transformers
 
