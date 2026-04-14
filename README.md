@@ -99,6 +99,31 @@ The code automatically downloads the model `tencent/HY-Embodied-0.5` from Huggin
 - **Memory**: At least 16GB RAM recommended
 - **Storage**: 20GB+ free space for model and dependencies
 
+### Docker (alternative setup)
+
+A pre-configured Docker environment is provided for reproducible setup on any Linux host with an NVIDIA GPU.
+
+**Prerequisites**: [Docker](https://docs.docker.com/get-docker/) and [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).
+
+```bash
+# Build the image (compiles flash_attn from source — takes 20-40 min on first run)
+docker compose build
+
+# Run the bundled inference demo
+docker compose run hy-embodied
+
+# Run a custom script (place it in ./workspace/)
+docker compose run hy-embodied python workspace/my_script.py
+```
+
+Model weights (~8 GB) are downloaded automatically on first run and cached in a named Docker volume so subsequent runs start immediately.
+
+To use a Hugging Face access token (e.g. for gated model variants):
+
+```bash
+HF_TOKEN=hf_... docker compose build
+```
+
 ## 🚀 Quick Start with Transformers
 
 ### Basic Inference Example

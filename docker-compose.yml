@@ -1,0 +1,32 @@
+services:
+  hy-embodied:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Uncomment and set HF_TOKEN if the model becomes gated on Hugging Face.
+      # args:
+      #   HF_TOKEN: "${HF_TOKEN}"
+    image: hy-embodied:latest
+    # Give the container access to all available GPUs.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # Persist downloaded model weights across container restarts.
+    volumes:
+      - hf-cache:/workspace/.cache/huggingface
+      # Mount a local directory for custom images / outputs.
+      - ./workspace:/app/workspace
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      # Override to point at a local model directory instead of HF Hub.
+      # - MODEL_PATH=/app/workspace/HY-Embodied-0.5
+    stdin_open: true
+    tty: true
+
+volumes:
+  hf-cache:
