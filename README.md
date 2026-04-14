@@ -42,7 +42,7 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 - [x] Transformers Inference
 - [x] vLLM Inference (transformers backend; native paged-attention backend is future work)
 - [ ] Fine-tuning Code
-- [ ] Online Gradio Demo
+- [x] Online Gradio Demo
 
 ## 🛠️ Dependencies and Installation
 
@@ -123,6 +123,31 @@ To use a Hugging Face access token (e.g. for gated model variants):
 ```bash
 HF_TOKEN=hf_... docker compose build
 ```
+
+## 🎨 Gradio Demo
+
+An interactive chat UI with image upload, streaming output, and adjustable generation settings.
+
+### Install
+
+```bash
+pip install "gradio>=4.44"
+```
+
+### Run locally
+
+```bash
+python app.py                          # http://127.0.0.1:7860
+python app.py --share                  # temporary public URL via Gradio
+python app.py --host 0.0.0.0 --port 8080
+MODEL_PATH=/path/to/local python app.py
+```
+
+Features:
+- Upload an image and ask questions in a streaming chat interface
+- **Thinking mode** toggle for step-by-step chain-of-thought reasoning
+- Temperature and max-token sliders
+- Text-only prompts work without an image
 
 ## ⚡ Quick Start with vLLM
 
