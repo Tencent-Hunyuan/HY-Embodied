@@ -41,7 +41,7 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 
 - [x] Transformers Inference
 - [x] vLLM Inference (transformers backend; native paged-attention backend is future work)
-- [ ] Fine-tuning Code
+- [x] Fine-tuning Code (LoRA SFT via PEFT)
 - [x] Online Gradio Demo
 
 ## 🛠️ Dependencies and Installation
@@ -123,6 +123,58 @@ To use a Hugging Face access token (e.g. for gated model variants):
 ```bash
 HF_TOKEN=hf_... docker compose build
 ```
+
+## 🔧 Fine-tuning
+
+LoRA supervised fine-tuning via [PEFT](https://github.com/huggingface/peft).
+
+### Install
+
+```bash
+pip install peft datasets
+```
+
+### Dataset format
+
+One JSON object per line (JSONL). The `"messages"` key follows the same chat format used for inference. See [`data/README.md`](data/README.md) for the full spec and multi-turn / image examples.
+
+### Run
+
+```bash
+# Single GPU
+python finetune.py \
+    --model_path tencent/HY-Embodied-0.5 \
+    --data_path data/train.jsonl \
+    --output_dir checkpoints/my-run \
+    --num_train_epochs 3 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 8 \
+    --learning_rate 2e-4 \
+    --bf16 true \
+    --logging_steps 10 \
+    --save_steps 200
+
+# Multi-GPU
+accelerate launch --num_processes 4 finetune.py \
+    --model_path tencent/HY-Embodied-0.5 \
+    --data_path data/train.jsonl \
+    --output_dir checkpoints/my-run
+```
+
+### Key options
+
+| Flag | Default | Description |
+|---|---|---|
+| `--lora_r` | `64` | LoRA rank |
+| `--lora_alpha` | `128` | LoRA alpha |
+| `--freeze_vision_tower` | `true` | Freeze the ViT encoder |
+| `--train_projector` | `false` | Also fine-tune the vision→text projector |
+| `--max_seq_len` | `2048` | Skip examples longer than this |
+| `--enable_thinking` | `false` | Enable chain-of-thought in the chat template |
+
+### Architecture note
+
+HY-Embodied's MoT decoder has **dual projection paths per layer** — separate text and vision Q/K/V/O projections and MLPs. LoRA is applied to both paths (`q_proj`, `q_proj_v`, `gate_proj` inside both `mlp` and `mlp_v`, etc.), covering the full MoT parameter space.
 
 ## 🎨 Gradio Demo
 
