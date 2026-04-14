@@ -99,6 +99,21 @@ The code automatically downloads the model `tencent/HY-Embodied-0.5` from Huggin
 - **Memory**: At least 16GB RAM recommended
 - **Storage**: 20GB+ free space for model and dependencies
 
+### Coordinate & Response Format
+
+The model uses the following coordinate representations:
+
+- **Point**: `<point>(x, y)</point>`, or a list of points `[<point>(x1, y1)</point>, <point>(x2, y2)</point>]`
+- **Box**: `<box>[xmin, ymin, xmax, ymax]</box>` or a list of boxes
+
+All coordinates are normalized to integers in the range **(0, 1000)**.
+
+The model's response follows a structured thinking format:
+
+```
+<think>\n[thinking content]\n</think>\n<answer>\n[answer content]\n</answer>
+```
+
 ## 🚀 Quick Start with Transformers
 
 ### Basic Inference Example
@@ -111,8 +126,13 @@ from transformers import AutoModelForImageTextToText, AutoProcessor
 # Load model & processor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
 DEVICE = "cuda"
+
+# Non-Thinking Mode
 THINKING_MODE = False
-TEMPERATURE = 0.8
+# Thinking Mode
+THINKING_MODE = True
+
+TEMPERATURE = 0.05
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
@@ -168,8 +188,13 @@ from transformers import AutoModelForImageTextToText, AutoProcessor
 # Load model & processor
 MODEL_PATH = "tencent/HY-Embodied-0.5"
 DEVICE = "cuda"
+
+# Non-Thinking Mode
 THINKING_MODE = False
-TEMPERATURE = 0.8
+# Thinking Mode
+THINKING_MODE = True
+
+TEMPERATURE = 0.5
 
 processor = AutoProcessor.from_pretrained(MODEL_PATH)
 
