@@ -3,6 +3,7 @@
 <p><b>Efficient Physical-World Agents</b></p>
 <p><i>Tencent Robotics X × Hy Vision Team × Futian Laboratory</i></p>
 
+<a href="https://arxiv.org/abs/2607.12894"><img src="https://img.shields.io/badge/Paper-arXiv-red?logo=arxiv" alt="arXiv"></a>
 <a href="hy_embodied_vlm_1_0_tech_report.pdf"><img src="https://img.shields.io/badge/PDF-Report-green?logo=report" alt="Tech Report"></a>
 <a href="https://huggingface.co/tencent/Hy-Embodied-VLM-1.0"><img src="https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface" alt="Models"></a>
 <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue" alt="License"></a>
@@ -11,7 +12,7 @@
 
 ## 🔥 Updates
 
-  * **`[2026-07-15]`** 🚀 We have released **Hy-Embodied-VLM-1.0**! An efficient 43B Mixture-of-Experts vision–language foundation model for embodied agents in the physical world. Weights are available on [Hugging Face](https://huggingface.co/tencent/Hy-Embodied-VLM-1.0), together with inference code for both HuggingFace `transformers` and vLLM.
+  * **`[2026-07-15]`** 🚀 We have released **Hy-Embodied-VLM-1.0**! An efficient 30B Mixture-of-Experts vision–language foundation model for embodied agents in the physical world. Weights are available on [Hugging Face](https://huggingface.co/tencent/Hy-Embodied-VLM-1.0), together with inference code for both HuggingFace `transformers` and vLLM.
   * **`[2026-06-15]`** 🤖 We have released **HY-VLA-0.5**! The [official code](https://github.com/Tencent-Hunyuan/Hy-Embodied-0.5-VLA), UMI-trained [weights](https://huggingface.co/tencent/Hy-Embodied-0.5-VLA-UMI) and 2000+ hours of high-fidelity UMI [data](https://huggingface.co/datasets/tencent/Hy-Embodied-0.5-VLA-Data) are now available.
   * **`[2026-04-09]`** 🚀 We have released **HY-Embodied-0.5**, featuring the open-sourced `HY-Embodied-0.5 MoT-2B` weights on [Hugging Face](https://huggingface.co/tencent/HY-Embodied-0.5/tree/main) along with the official inference code! Documentation is now available under [`Hy-Embodied-0.5/`](./Hy-Embodied-0.5/).
 
@@ -265,12 +266,13 @@ Released under **Apache License 2.0**. See [`LICENSE`](./LICENSE) and [`Hy-Embod
 If you find our work useful for your research and applications, please cite our tech report using this BibTeX:
 
 ```bibtex
-@techreport{tencent2026hyembodiedvlm10,
-  title       = {Hy-Embodied-VLM-1.0: Efficient Physical-World Agents},
-  author      = {Team, HY and Wang, Ziyi and Yu, Xumin and Ling, Yonggen and Li, Yunheng and Rao, Yongming and Wang, Oran and Gao, Mingqi and Zhou, Yuchen and Liang, Yves and others},
-  year        = {2026},
-  institution = {Tencent Robotics X, Hy Vision Team, and Futian Laboratory},
-  url         = {https://github.com/Tencent-Hunyuan/HY-Embodied}
+@article{tencent2026hyembodiedvlm10,
+  title         = {Hy-Embodied-VLM-1.0: Efficient Physical-World Agents},
+  author        = {Team, HY and Wang, Ziyi and Yu, Xumin and Ling, Yonggen and Li, Yunheng and Rao, Yongming and Wang, Oran and Gao, Mingqi and Zhou, Yuchen and Liang, Yves and others},
+  year          = {2026},
+  eprint        = {2607.12894},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2607.12894}
 }
 ```
 
