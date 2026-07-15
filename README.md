@@ -12,7 +12,7 @@
 
 ## 🔥 Updates
 
-  * **`[2026-07-15]`** 🚀 We have released **Hy-Embodied-VLM-1.0**! An efficient 30B Mixture-of-Experts vision–language foundation model for embodied agents in the physical world. Weights are available on [Hugging Face](https://huggingface.co/tencent/Hy-Embodied-VLM-1.0), together with inference code for both HuggingFace `transformers` and vLLM.
+  * **`[2026-07-15]`** 🚀 We have released **Hy-Embodied-VLM-1.0**! An efficient Mixture-of-Experts vision–language foundation model for embodied agents in the physical world, activating only **~3B parameters** per token (~30B total) for high inference efficiency. Weights are available on [Hugging Face](https://huggingface.co/tencent/Hy-Embodied-VLM-1.0), together with inference code for both HuggingFace `transformers` and vLLM.
   * **`[2026-06-15]`** 🤖 We have released **HY-VLA-0.5**! The [official code](https://github.com/Tencent-Hunyuan/Hy-Embodied-0.5-VLA), UMI-trained [weights](https://huggingface.co/tencent/Hy-Embodied-0.5-VLA-UMI) and 2000+ hours of high-fidelity UMI [data](https://huggingface.co/datasets/tencent/Hy-Embodied-0.5-VLA-Data) are now available.
   * **`[2026-04-09]`** 🚀 We have released **HY-Embodied-0.5**, featuring the open-sourced `HY-Embodied-0.5 MoT-2B` weights on [Hugging Face](https://huggingface.co/tencent/HY-Embodied-0.5/tree/main) along with the official inference code! Documentation is now available under [`Hy-Embodied-0.5/`](./Hy-Embodied-0.5/).
 
