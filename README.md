@@ -243,6 +243,39 @@ The code automatically downloads the model `tencent/Hy-Embodied-VLM-1.0` from th
 
 *Note: Hy-Embodied variants and Qwen3.6-A3B are evaluated in thinking mode; Embodied-R1.5-8B is only available in its Instruct configuration; Cosmos3-Nano-8B is reported in non-thinking mode (enabling thinking substantially degrades its performance).*
 
+## 🧭 Navigation Agent
+
+Hy-Embodied-VLM-1.0 powers closed-loop navigation with a single model for language grounding, spatial memory, planning, and goal verification.
+
+<div align="center">
+<img src="./Hy-Embodied-VLM-1.0/figures/3-navigation-agent.png" alt="Hy-Embodied-VLM-1.0 Navigation Agent" width="95%">
+</div>
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <b>Instruction-Following Navigation</b><br>
+      <sub>R2R-CE, val-unseen</sub>
+    </td>
+    <td align="center" width="50%">
+      <b>Zero-Shot Object-Goal Navigation</b><br>
+      <sub>Matterport3D</sub>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/Tencent-Hunyuan/HY-Embodied/blob/master/Hy-Embodied-VLM-1.0/figures/r2r-ce-instruction-following-navigation.mp4">
+        <img src="./Hy-Embodied-VLM-1.0/figures/r2r-ce-instruction-following-navigation-preview.png" alt="Play the R2R-CE instruction-following navigation demo" width="100%">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/Tencent-Hunyuan/HY-Embodied/blob/master/Hy-Embodied-VLM-1.0/figures/matterport3d-object-goal-navigation.mp4">
+        <img src="./Hy-Embodied-VLM-1.0/figures/matterport3d-object-goal-navigation-preview.png" alt="Play the Matterport3D object-goal navigation demo" width="100%">
+      </a>
+    </td>
+  </tr>
+</table>
+
 ## 📜 Older Versions
 
 Prior releases of the Hy-Embodied family remain fully available:
