@@ -174,7 +174,7 @@ The code automatically downloads the model `tencent/Hy-Embodied-VLM-1.0` from th
 |---|---|
 | Architecture | `HYV3VLForConditionalGeneration` (VL wrapper over `HYV3ForCausalLM` MoE LLM + `Hy-ViT2` vision encoder) |
 | Model type | `hy_v3_vl` |
-| Total parameters | ~43B |
+| Total parameters | ~30B |
 | Activated parameters per token | ~3B (8 of 128 experts + 1 shared) |
 | Context length | 32,768 tokens |
 | Precision | BF16 |
