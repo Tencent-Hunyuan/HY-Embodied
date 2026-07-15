@@ -1,49 +1,49 @@
 <div align="center">
-<h1>HY-Embodied</h1>
-<p><b>A Family of Embodied Foundation Models for Real-World Agents</b></p>
-<p><i>Tencent Robotics X × HY Vision Team</i></p>
+<h1>Hy-Embodied-VLM-1.0</h1>
+<p><b>Efficient Physical-World Agents</b></p>
+<p><i>Tencent Robotics X × Hy Vision Team × Futian Laboratory</i></p>
 
-<a href="hy_embodied_tech_report.pdf"><img src="https://img.shields.io/badge/PDF-Report-green?logo=report" alt="Tech Report"></a>
-<a href="https://arxiv.org/abs/2604.07430"><img src="https://img.shields.io/badge/Paper-arXiv-red?logo=arxiv" alt="arXiv"></a>
-<a href="https://huggingface.co/tencent/HY-Embodied-0.5/tree/main"><img src="https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface" alt="Models"></a>
-<a href="https://x.com/TencentHunyuan/status/2042503238877135336?s=20"><img src="https://img.shields.io/badge/Post-X-black?logo=x&logoColor=white" alt="X"></a>
+<a href="hy_embodied_vlm_1_0_tech_report.pdf"><img src="https://img.shields.io/badge/PDF-Report-green?logo=report" alt="Tech Report"></a>
+<a href="https://huggingface.co/tencent/Hy-Embodied-VLM-1.0"><img src="https://img.shields.io/badge/Models-HuggingFace-yellow?logo=huggingface" alt="Models"></a>
+<a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue" alt="License"></a>
 
 </div>
 
-https://github.com/user-attachments/assets/a5c6b872-2cb0-4f52-8321-894fee7da27e
-
 ## 🔥 Updates
 
+  * **`[2026-07-15]`** 🚀 We have released **Hy-Embodied-VLM-1.0**! An efficient 43B Mixture-of-Experts vision–language foundation model for embodied agents in the physical world. Weights are available on [Hugging Face](https://huggingface.co/tencent/Hy-Embodied-VLM-1.0), together with inference code for both HuggingFace `transformers` and vLLM.
   * **`[2026-06-15]`** 🤖 We have released **HY-VLA-0.5**! The [official code](https://github.com/Tencent-Hunyuan/Hy-Embodied-0.5-VLA), UMI-trained [weights](https://huggingface.co/tencent/Hy-Embodied-0.5-VLA-UMI) and 2000+ hours of high-fidelity UMI [data](https://huggingface.co/datasets/tencent/Hy-Embodied-0.5-VLA-Data) are now available.
-   
-  * **`[2026-04-09]`** 🚀 We have released **HY-Embodied-0.5**, featuring the open-sourced `HY-Embodied-0.5 MoT-2B` weights on [Hugging Face](https://huggingface.co/tencent/HY-Embodied-0.5/tree/main) along with the official inference code\!
+  * **`[2026-04-09]`** 🚀 We have released **HY-Embodied-0.5**, featuring the open-sourced `HY-Embodied-0.5 MoT-2B` weights on [Hugging Face](https://huggingface.co/tencent/HY-Embodied-0.5/tree/main) along with the official inference code! Documentation is now available under [`Hy-Embodied-0.5/`](./Hy-Embodied-0.5/).
 
 ## 📖 Abstract
 
-We introduce **HY-Embodied-0.5**, a suite of foundation models tailored specifically for real-world embodied intelligence. To bridge the gap between general Vision-Language Models (VLMs) and the strict demands of physical agents, our models are engineered to excel in spatial-temporal visual perception and complex embodied reasoning (prediction, interaction, and planning).
+Building capable embodied agents requires not only multimodal perception and understanding, but also agentic capabilities for reasoning about actions, adapting to evolving situations, and interacting with the physical world. In this report, we introduce **Hy-Embodied-VLM-1.0**, an efficient and powerful embodied foundation model specifically designed for embodied agents operating in the physical world.
 
-The suite features an innovative **Mixture-of-Transformers (MoT)** architecture utilizing latent tokens for modality-specific computing, significantly enhancing fine-grained perception. It includes two primary variants: a highly efficient **2B model** for edge deployment and a powerful **32B model** for complex reasoning. Through a self-evolving post-training paradigm and large-to-small on-policy distillation, our compact MoT-2B outperforms state-of-the-art models of similar size across 16 benchmarks, while the 32B variant achieves frontier-level performance comparable to Gemini 3.0 Pro. Ultimately, HY-Embodied serves as a robust "brain" for Vision-Language-Action (VLA) pipelines, delivering compelling results in real-world physical robot control.
+To cultivate such capabilities from the pre-training stage onward, we define an **action-centric capability taxonomy** comprising three progressive dimensions: **Action-Relevant State Understanding**, **Action–Transition Reasoning**, and **Sequential and Adaptive Reasoning**. Guided by this taxonomy, we develop a systematic data pipeline and curate data mixtures spanning both pre-training and post-training.
+
+To deliver strong physical-world understanding and interaction capabilities while supporting latency-sensitive deployment, we build our model on the **Hy3-A3B language backbone** and the **Hy-ViT2 vision encoder**. Its efficient Mixture-of-Experts architecture combines strong model capacity with high inference efficiency. We evaluate Hy-Embodied-VLM-1.0 on a comprehensive suite of **38 benchmarks** covering embodied perception, physical-world understanding, and embodied reasoning. The model achieves the best performance among similarly sized models on **19 of the 38 benchmarks** and substantially outperforms strong competitors, including **Qwen3.6-A3B** and **Cosmos 3**. Compared with the previous-generation Hy-Embodied-0.5 MoT-2B, Hy-Embodied-VLM-1.0 improves average performance by **8.4%**. Despite activating only **3B parameters**, it achieves performance close to that of the previous-generation model with 32B activated parameters. Beyond static benchmark evaluation, Hy-Embodied-VLM-1.0 also demonstrates strong performance on embodied agentic tasks requiring multi-turn interaction and long-horizon reasoning.
 
 <div align="center">
-<img src="figures/teaser.png" alt="HY-Embodied Teaser" width="85%">
+<img src="Hy-Embodied-VLM-1.0/figures/1-teaser.png" alt="Hy-Embodied-VLM-1.0 Performance" width="85%">
 </div>
 
 ## ⭐️ Key Features
 
-  * 🧠 **Evolved MoT Architecture:** Designed for maximum efficiency without sacrificing visual acuity. The MoT-2B variant contains 4B total parameters but requires **only 2.2B activated parameters** during inference. By emphasizing modality-specific computing in the vision pathway, it achieves the high inference speed of a dense 2B model while delivering superior, fine-grained perceptual representations.
-  * 🔗 **High-Quality Mixed Chain Reasoning:** We introduce an advanced iterative, self-evolving post-training pipeline. By employing on-policy distillation, we successfully transfer the sophisticated step-by-step reasoning, planning, and high-quality "thinking" capabilities from our powerful 32B model directly to the compact 2B variant.
-  * 🌍 **Large-Scale Embodied Pre-training:** Grounded in a massive, specially curated dataset comprising **\>100 million** embodied and spatial-specific data points. Trained on a corpus exceeding **200 billion tokens**, the model develops a deep, native understanding of 3D spaces, physical object interactions, and agent dynamics.
-  * 🦾 **Stronger VLA Application:** Beyond standard academic benchmarks, HY-Embodied is engineered to be the core cognitive engine for physical robots. It seamlessly integrates into Vision-Language-Action (VLA) frameworks, acting as a highly robust and capable brain to drive high success rates in complex, real-world robotic control tasks.
+  * 🧠 **Efficient 43B MoE, ~3B activated** — Combines the Hy3-A3B language backbone with the Hy-ViT2 vision encoder in a Mixture-of-Experts architecture. Total ~43B parameters with only ~3B activated per token — approximately one-tenth of the activated parameters of the previous-generation A32B system, while achieving nearly comparable overall performance.
+  * 🌏 **Action-Centric Capability Taxonomy** — We define three progressive levels of embodied intelligence: (i) **Action-Relevant State Understanding** for accurately understanding the states of the agent and its environment, (ii) **Action–Transition Reasoning** for understanding actions, planning them, and reasoning about their consequences, and (iii) **Sequential and Adaptive Reasoning** for long-horizon planning, reflection, repair, and recovery. Data and training are systematically designed around this taxonomy.
+  * 🔁 **Self-Evolving Post-Training** — Embodied agentic reasoning is cultivated through a self-evolving loop that couples reinforcement learning with rejection-sampling fine-tuning, seeded from a small curated set of high-quality thinking traces. A final reward-specialized stage trains continuous-reward and discrete-reward RL policies separately and fuses them, delivering sharp geometric precision alongside robust decision-making, planning, and reflection quality.
+  * 🏆 **State-of-the-Art on Embodied Benchmarks** — Ranks 1st on 19 of 38 benchmarks and 2nd on another 11, outperforming Qwen3.6-A3B (+4.4% avg), Cosmos 3-8B, and Embodied-R1.5-8B. State-of-the-art on R2R-CE vision-and-language navigation (RGB-only setting) and strong zero-shot performance on Matterport3D Object Goal Navigation.
 
 <div align="center">
-<img src="figures/arch.png" alt="HY-Embodied Architecture" width="85%">
+<img src="Hy-Embodied-VLM-1.0/figures/2-taxonomy.png" alt="Hy-Embodied-VLM-1.0 Capability Taxonomy" width="85%">
 </div>
 
 ## 📅 Plannings
 
 - [x] Transformers Inference
-- [x] Fine-tuning Code
-- [ ] vLLM Inference
+- [x] vLLM Inference (with in-tree plugin)
+- [x] Model Weights
+- [ ] Fine-tuning Code
 - [ ] Online Gradio Demo
 
 ## 🛠️ Dependencies and Installation
@@ -51,276 +51,229 @@ The suite features an innovative **Mixture-of-Transformers (MoT)** architecture 
 ### Prerequisites
 
 - 🖥️ **Operating System**: Linux (recommended)
-- 🐍 **Python**: 3.12+ (recommended and tested)
-- ⚡ **CUDA**: 12.6
-- 🔥 **PyTorch**: 2.8.0
-- 🎮 **GPU**: NVIDIA GPU with CUDA support
+- 🐍 **Python**: 3.10+
+- ⚡ **CUDA**: 12.x (H100 / H20 / A100 tested)
+- 🔥 **PyTorch**: 2.4+
+- 🎮 **GPU**: NVIDIA GPU(s). The full BF16 model requires ~86 GB across GPUs; a single 8×80 GB node is sufficient.
 
 ### Installation
 
-1. **Install the specific Transformers version required for this model:**
+We pin dependencies to the versions we validated end-to-end
+(`vllm==0.14.1` + `transformers==4.57.6` + `torch==2.9.1`). The cleanest
+way to install these — with the CUDA build matched to your driver — is
+[uv](https://docs.astral.sh/uv/):
+
 ```bash
-pip install git+https://github.com/huggingface/transformers@9293856c419762ebf98fbe2bd9440f9ce7069f1a
+# Install uv once (skip if you already have it)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Create a fresh venv (Python 3.10+)
+uv venv --python 3.12
+source .venv/bin/activate
 ```
 
-> **Note**: We will merge the improvements into the Transformers main branch later.
+**Option A — vLLM path (recommended for serving)**. A single `uv` command
+installs `vllm`, `transformers`, `torch`, `torchvision`, and picks the
+CUDA wheel that matches your driver:
 
-2. **Install other dependencies:**
 ```bash
-pip install -r requirements.txt
+uv pip install vllm==0.14.1 --torch-backend auto
+uv pip install -e Hy-Embodied-VLM-1.0/inference/vllm/    # our plugin
 ```
+
+**Option B — HuggingFace `transformers` path (single-instance inference)**:
+
+```bash
+uv pip install torch==2.9.1 torchvision==0.24.1 --torch-backend auto
+uv pip install transformers==4.57.6 accelerate pillow
+```
+
+Verify: `python -c "import torch; assert torch.cuda.is_available()"`.
 
 ### Quick Start
 
 1. **Clone the repository:**
+
 ```bash
 git clone https://github.com/Tencent-Hunyuan/HY-Embodied
-cd HY-Embodied/
+cd HY-Embodied
 ```
 
-2. **Install dependencies:**
+2. **HuggingFace `transformers` (single-instance):**
+
 ```bash
-pip install -r requirements.txt
+# Install deps (see Installation above)
+uv pip install torch==2.9.1 torchvision==0.24.1 --torch-backend auto
+uv pip install transformers==4.57.6 accelerate pillow
+
+# Run the demo
+cd Hy-Embodied-VLM-1.0/inference/transformers
+python infer_hf.py
 ```
 
-3. **Run inference:**
+The demo runs both single-image inference and a small batch, in `enable_thinking=True` (chain-of-thought) and `enable_thinking=False` (direct answer) modes.
+
+3. **vLLM (recommended for serving):**
+
 ```bash
-python inference.py
+# One-shot install: vllm + torch + torchvision + transformers all at
+# matching versions with the CUDA build picked from your driver.
+uv pip install vllm==0.14.1 --torch-backend auto
+
+# Install this repo's vLLM plugin (registers HYV3VL model + parsers)
+uv pip install -e Hy-Embodied-VLM-1.0/inference/vllm/
+
+# Start server
+MODEL_PATH=./Hy-Embodied-VLM-1.0-weights bash Hy-Embodied-VLM-1.0/inference/vllm/serve.sh
 ```
 
-The example script demonstrates both single generation and batch generation capabilities.
+Then hit the OpenAI-compatible endpoint:
+
+```bash
+curl http://127.0.0.1:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "hy_a3b",
+    "messages": [{"role": "user", "content": "Describe how to grasp a cup."}],
+    "max_tokens": 512,
+    "chat_template_kwargs": {"enable_thinking": true}
+  }'
+```
+
+See [`Hy-Embodied-VLM-1.0/inference/vllm/README.md`](./Hy-Embodied-VLM-1.0/inference/vllm/README.md) for full options and [`example_client.py`](./Hy-Embodied-VLM-1.0/inference/vllm/example_client.py) for a Python OpenAI-SDK example including image inputs and streaming.
+
+### Reasoning-Mode Toggle
+
+Hy-Embodied-VLM-1.0 is a **hybrid reasoning model**. Both modes are trained into the same weights; selection is per-request via a chat-template kwarg.
+
+| `enable_thinking` | Prompt suffix | When to use |
+|---|---|---|
+| `True` (default) | `<think>` | Complex spatial reasoning, planning, multi-step tasks |
+| `False` | `<think></think>` | Direct answers, low-latency single-turn Q&A |
+
+> We deliberately use `enable_thinking` (Qwen3 convention) rather than
+> `reasoning_effort`. vLLM prior to v0.22 has a top-level
+> `request.reasoning_effort` field that silently clobbers
+> `chat_template_kwargs["reasoning_effort"]` (fixed by
+> [vllm-project/vllm#43401](https://github.com/vllm-project/vllm/pull/43401));
+> `enable_thinking` avoids the clobber and works across all vLLM versions.
 
 ### Model Download
 
-The code automatically downloads the model `tencent/HY-Embodied-0.5` from Hugging Face Hub. Ensure you have sufficient disk space (8 GB) for the model weights.
+The code automatically downloads the model `tencent/Hy-Embodied-VLM-1.0` from the Hugging Face Hub on first run. Ensure you have sufficient disk space (~120 GB including cache) for the model weights.
 
 ### Hardware Requirements
 
-- **GPU**: Recommended for optimal performance (NVIDIA GPU with at least 16GB VRAM)
-- **CPU**: Supported but slower
-- **Memory**: At least 16GB RAM recommended
-- **Storage**: 20GB+ free space for model and dependencies
+- **Training / full-precision inference**: A single 8×80 GB GPU node (H100 / H20 / A100 80G). Model weights are BF16 (~86 GB); tensor-parallel size 4–8 recommended.
+- **Serving**: 4 GPUs of 80 GB (tp=4) per replica is the recommended configuration for maximum throughput.
+- **Development / debugging**: Any CUDA GPU. Smaller GPUs may require offloading or additional tensor parallelism.
 
-### Coordinate & Response Format
+## 🧱 Model Card
 
-The model uses the following coordinate representations:
-
-- **Point**: `<point>(x, y)</point>`, or a list of points `[<point>(x1, y1)</point>, <point>(x2, y2)</point>]`
-- **Box**: `<box>[xmin, ymin, xmax, ymax]</box>` or a list of boxes
-
-All coordinates are normalized to integers in the range **(0, 1000)**.
-
-The model's response follows a structured thinking format:
-
-```
-<think>\n[thinking content]\n</think>\n<answer>\n[answer content]\n</answer>
-```
-
-## 🚀 Quick Start with Transformers
-
-### Basic Inference Example
-
-```python
-import os
-import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
-
-# Load model & processor
-MODEL_PATH = "tencent/HY-Embodied-0.5"
-DEVICE = "cuda"
-
-# Non-Thinking Mode
-THINKING_MODE = False
-# Thinking Mode
-THINKING_MODE = True
-
-TEMPERATURE = 0.05
-
-processor = AutoProcessor.from_pretrained(MODEL_PATH)
-
-# Load chat template if available
-chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
-if os.path.exists(chat_template_path):
-    processor.chat_template = open(chat_template_path).read()
-
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=torch.bfloat16)
-model.to(DEVICE).eval()
-
-# Prepare input messages
-messages = [
-    {
-        "role": "user",
-        "content": [
-            {"type": "image", "image": "./figures/example.jpg"},
-            {"type": "text", "text": "Describe the image in detail."},
-        ],
-    }
-]
-
-# Process and generate
-inputs = processor.apply_chat_template(
-    messages,
-    tokenize=True,
-    add_generation_prompt=True,
-    return_dict=True,
-    return_tensors="pt",
-    enable_thinking=THINKING_MODE,
-).to(model.device)
-
-with torch.no_grad():
-    generated_ids = model.generate(
-        **inputs,
-        max_new_tokens=32768,
-        use_cache=True,
-        temperature=TEMPERATURE,
-        do_sample=TEMPERATURE > 0,
-    )
-
-output_ids = [out[len(inp):] for inp, out in zip(inputs.input_ids, generated_ids)]
-print(processor.batch_decode(output_ids, skip_special_tokens=True)[0])
-```
-
-### Batch Inference
-
-```python
-import os
-import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
-
-# Load model & processor
-MODEL_PATH = "tencent/HY-Embodied-0.5"
-DEVICE = "cuda"
-
-# Non-Thinking Mode
-THINKING_MODE = False
-# Thinking Mode
-THINKING_MODE = True
-
-TEMPERATURE = 0.5
-
-processor = AutoProcessor.from_pretrained(MODEL_PATH)
-
-# Load chat template if available
-chat_template_path = os.path.join(MODEL_PATH, "chat_template.jinja")
-if os.path.exists(chat_template_path):
-    processor.chat_template = open(chat_template_path).read()
-
-model = AutoModelForImageTextToText.from_pretrained(MODEL_PATH, torch_dtype=torch.bfloat16)
-model.to(DEVICE).eval()
-
-# Batch Inference (multiple prompts at once)
-messages_batch = [
-    # Sample A: image + text
-    [
-        {
-            "role": "user",
-            "content": [
-                {"type": "image", "image": "./figures/example.jpg"},
-                {"type": "text", "text": "Describe the image in detail."},
-            ],
-        }
-    ],
-    # Sample B: text only
-    [
-        {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": "How to open a fridge?"},
-            ],
-        }
-    ],
-]
-
-# Process each message independently
-all_inputs = []
-for msgs in messages_batch:
-    inp = processor.apply_chat_template(
-        msgs,
-        tokenize=True,
-        add_generation_prompt=True,
-        return_dict=True,
-        return_tensors="pt",
-        enable_thinking=THINKING_MODE,
-    )
-    all_inputs.append(inp)
-
-# Left-pad and batch
-batch = processor.pad(all_inputs, padding=True, padding_side="left").to(model.device)
-
-with torch.no_grad():
-    batch_generated_ids = model.generate(
-        **batch,
-        max_new_tokens=32768,
-        use_cache=True,
-        temperature=TEMPERATURE,
-        do_sample=TEMPERATURE > 0,
-    )
-
-# Decode: strip the padded input portion
-padded_input_len = batch["input_ids"].shape[1]
-for i, msgs in enumerate(messages_batch):
-    out_ids = batch_generated_ids[i][padded_input_len:]
-    print(f"\n--- Sample {i} ---")
-    print(processor.decode(out_ids, skip_special_tokens=True))
-```
+| Field | Value |
+|---|---|
+| Architecture | `HYV3VLForConditionalGeneration` (VL wrapper over `HYV3ForCausalLM` MoE LLM + `Hy-ViT2` vision encoder) |
+| Model type | `hy_v3_vl` |
+| Total parameters | ~43B |
+| Activated parameters per token | ~3B (8 of 128 experts + 1 shared) |
+| Context length | 32,768 tokens |
+| Precision | BF16 |
+| Vision inputs | Image (up to 128 per prompt); native aspect ratios |
+| Chat template | Unified `chat_template.jinja` bundled with weights (supports `enable_thinking` kwarg) |
 
 ## 📊 Evaluation
 
-### Visual Perception
+> **Note**: We evaluated Hy-Embodied-VLM-1.0 A3B across 38 embodied-relevant benchmarks
+> against parameter-comparable state-of-the-art models. For detailed methodology, please
+> refer to our [technical report](hy_embodied_vlm_1_0_tech_report.pdf).
 
-> **Note**: We evaluated HY-Embodied-0.5 MoT-2B across 22 embodied-relevant benchmarks against models of similar size. For detailed performance metrics and methodology, please refer to our technical report.
+### Action-Relevant State Understanding
 
-| Benchmark | HY-Embodied 0.5 MoT-2B | Qwen3-VL 2B | Qwen3-VL 4B | RoboBrain 2.5 4B | MiMo-Embodied 7B |
-|-----------|------------------------|-------------|-------------|------------------|------------------|
-| CV-Bench  | **89.2** | 80.0 | 85.7 | 86.9 | 88.8 |
-| DA-2K     | **92.3** | 69.5 | 76.5 | 79.4 | 72.2 |
+| Benchmark | Hy-Embodied 0.5 MoT-2B | Qwen3.6-A3B | Embodied-R1.5 8B | Cosmos3-Nano 8B | Hy-Embodied VLM-1.0 A3B |
+|-----------|:----------------------:|:-----------:|:----------------:|:---------------:|:-----------------------:|
+| BLINK | 82.7 | **87.9** | 77.8 | 82.4 | 87.3 |
+| CV-Bench | 89.2 | 88.6 | 86.8 | 88.0 | **89.7** |
+| PixMo-Points | 51.4 | 57.5 | 57.1 | 59.8 | **64.6** |
+| PointBench | 69.0 | 35.1 | 59.1 | 39.2 | **71.7** |
+| Depth-InHouse | 45.7 | 63.0 | 52.0 | 47.0 | **67.6** |
+| 3DSRBench | **57.0** | 49.9 | 42.6 | 31.9 | 52.6 |
+| All-Angles-Bench | 55.1 | **64.0** | 48.4 | 51.9 | 63.4 |
+| DA-2K | **92.3** | 81.4 | 80.5 | 82.8 | 83.2 |
+| ERQA | 54.5 | 57.5 | 37.3 | 45.0 | **60.8** |
+| EmbSpatial-Bench | 82.8 | **83.2** | 76.0 | 80.0 | 82.7 |
+| MMSI-Bench | 33.2 | **41.9** | 29.8 | 34.0 | 41.8 |
+| MindCube | 66.3 | 55.0 | 27.9 | 32.8 | **70.0** |
+| SAT | 76.7 | **80.7** | 60.7 | 54.0 | 78.0 |
+| SIBench-mini | 58.2 | 60.9 | 51.9 | 52.5 | **64.5** |
+| SITE-Bench-Image | 62.7 | 71.7 | 60.3 | 59.6 | **72.3** |
+| ViewSpatial-Bench | 53.1 | 49.0 | 43.7 | 52.0 | **53.3** |
+| OpenEQA | 54.4 | **73.2** | 53.9 | 53.8 | 63.1 |
+| PartAfford | 30.1 | 25.5 | **82.6** | 32.2 | 63.7 |
+| RoboAfford | 73.5 | 66.7 | 60.6 | **76.2** | 71.5 |
+| RoboRefIt | 82.8 | 78.5 | 77.2 | 55.4 | **88.2** |
+| RefSpatial-Bench | 45.8 | 53.1 | 52.4 | 44.4 | **53.4** |
+| RoboSpatial-Home | 55.7 | **70.9** | 69.1 | 58.3 | 69.4 |
+| Where2Place | 68.0 | 70.0 | **73.0** | 71.0 | 65.0 |
 
-### Embodied Understanding
+### Action–Transition Reasoning
 
-| Benchmark | HY-Embodied 0.5 MoT-2B | Qwen3-VL 2B | Qwen3-VL 4B | RoboBrain 2.5 4B | MiMo-Embodied 7B |
-|-----------|------------------------|-------------|-------------|------------------|------------------|
-| ERQA | **54.5** | 41.8 | 47.3 | 43.3 | 46.8 |
-| EmbSpatial-Bench | **82.8** | 75.9 | 80.7 | 73.8 | 76.2 |
-| RoboBench-MCQ | **49.2** | 36.9 | 45.8 | 44.4 | 43.6 |
-| RoboBench-Planning | 54.2 | 36.2 | 36.4 | 39.2 | **58.7** |
-| RoboSpatial-Home | 55.7 | 45.3 | **63.2** | 62.3 | 61.8 |
-| ShareRobot-Aff. | **26.8** | 19.8 | 25.5 | 25.5 | 9.0 |
-| ShareRobot-Traj. | 73.3 | 41.6 | 62.2 | **81.4** | 50.6 |
-| Ego-Plan2 | 45.5 | 35.5 | 38.8 | **52.6** | 39.9 |
+| Benchmark | Hy-Embodied 0.5 MoT-2B | Qwen3.6-A3B | Embodied-R1.5 8B | Cosmos3-Nano 8B | Hy-Embodied VLM-1.0 A3B |
+|-----------|:----------------------:|:-----------:|:----------------:|:---------------:|:-----------------------:|
+| FineBench | 56.9 | 76.9 | 67.1 | 63.5 | **80.3** |
+| CrossHOI-Bench | 40.7 | 58.0 | 55.1 | 51.0 | **63.2** |
+| PIO | 54.6 | 47.9 | 61.6 | 54.4 | **65.3** |
+| VABench-Point | 26.0 | 50.5 | **61.4** | 45.2 | 59.7 |
+| VABench-Visual-Trace | 75.0 | 80.3 | **89.8** | 81.6 | 79.7 |
+| ShareRobot-Bench-Affordance | 26.8 | **28.2** | 25.2 | 23.0 | 26.7 |
+| ShareRobot-Bench-Trajectory | 73.3 | 68.9 | 69.2 | 65.5 | **76.7** |
+| RoboBench-MCQ | 49.2 | 59.1 | 41.1 | 43.5 | **61.2** |
 
-### Spatial Understanding
+### Sequential and Adaptive Reasoning
 
-| Benchmark | HY-Embodied 0.5 MoT-2B | Qwen3-VL 2B | Qwen3-VL 4B | RoboBrain 2.5 4B | MiMo-Embodied 7B |
-|-----------|------------------------|-------------|-------------|------------------|------------------|
-| 3DSRBench | **57.0** | 39.9 | 43.9 | 44.8 | 42.0 |
-| All-Angles Bench | **55.1** | 42.3 | 46.7 | 43.8 | 49.0 |
-| MindCube | **66.3** | 28.4 | 31.0 | 26.9 | 36.2 |
-| MMSI-Bench | **33.2** | 23.6 | 25.1 | 20.5 | 31.9 |
-| RefSpatial-Bench | 45.8 | 28.9 | 45.3 | **56.0** | 48.0 |
-| SAT | 76.7 | 45.3 | 56.7 | 51.3 | **78.7** |
-| SIBench-mini | **58.2** | 42.0 | 50.9 | 47.3 | 53.1 |
-| SITE-Bench-Image | **62.7** | 52.3 | 61.0 | 57.9 | 49.9 |
-| SITE-Bench-Video | **63.5** | 52.2 | 58.0 | 54.8 | 58.9 |
-| ViewSpatial | **53.1** | 37.2 | 41.6 | 36.6 | 36.1 |
-| VSIBench | **60.5** | 48.0 | 55.2 | 41.7 | 48.5 |
-| Where2Place | **68.0** | 45.0 | 59.0 | 65.0 | 63.6 |
+| Benchmark | Hy-Embodied 0.5 MoT-2B | Qwen3.6-A3B | Embodied-R1.5 8B | Cosmos3-Nano 8B | Hy-Embodied VLM-1.0 A3B |
+|-----------|:----------------------:|:-----------:|:----------------:|:---------------:|:-----------------------:|
+| SITE-Bench-Video | 63.5 | **71.1** | 59.1 | 57.6 | 69.2 |
+| VSIBench | **60.5** | 57.5 | 59.2 | 50.4 | 58.9 |
+| EgoPlan2 | 45.5 | 49.9 | **61.0** | 42.6 | 49.6 |
+| Cosmos | 54.3 | 67.8 | **68.6** | 67.1 | 66.9 |
+| VLABench | 16.2 | 49.9 | 39.4 | 48.9 | **51.1** |
+| RoboBench-Planning | 54.2 | 53.9 | 39.4 | 41.5 | **54.9** |
+| RoboFAC | 35.6 | 41.4 | 43.9 | 34.4 | **51.0** |
 
-*Note: Results for HY-Embodied-0.5 MoT-2B are reported in thinking mode, while for all other models, we report the better performance between non-thinking and thinking modes.*
+*Note: Hy-Embodied variants and Qwen3.6-A3B are evaluated in thinking mode; Embodied-R1.5-8B is only available in its Instruct configuration; Cosmos3-Nano-8B is reported in non-thinking mode (enabling thinking substantially degrades its performance).*
 
-## 📚 Citation
+## 📜 Older Versions
 
-If you find it useful for your research and applications, please cite our paper using this BibTeX:
+Prior releases of the Hy-Embodied family remain fully available:
+
+| Version | Description | Location |
+|---|---|---|
+| **Hy-Embodied-0.5** (MoT-2B) | The first release: MoT architecture, 2B activated params, tuned for edge deployment | [`./Hy-Embodied-0.5/`](./Hy-Embodied-0.5/) |
+| **Hy-Embodied-0.5-VLA** | UMI-trained VLA for real-robot manipulation | [Tencent-Hunyuan/Hy-Embodied-0.5-VLA](https://github.com/Tencent-Hunyuan/Hy-Embodied-0.5-VLA) |
+| **Hy-Embodied-0.5-X** | Extended variant with additional post-training | [Tencent-Hunyuan/HY-Embodied-0.5-X](https://github.com/Tencent-Hunyuan/HY-Embodied-0.5-X) |
+
+Documentation for Hy-Embodied-0.5 (previously at this repo's root) has been moved into
+[`./Hy-Embodied-0.5/`](./Hy-Embodied-0.5/) to make room for the multi-version layout. All existing 0.5
+code and instructions remain unchanged inside that directory.
+
+## 📄 License
+
+Released under **Apache License 2.0**. See [`LICENSE`](./LICENSE) and [`Hy-Embodied-VLM-1.0/LICENSE`](./Hy-Embodied-VLM-1.0/LICENSE).
+
+## 🏷️ Citation
+
+If you find our work useful for your research and applications, please cite our tech report using this BibTeX:
+
 ```bibtex
-@article{tencent2026hyembodied05,
-title={HY-Embodied-0.5: Embodied Foundation Models for Real-World Agents},
-author={Team, HY and Yu, Xumin and Liu, Zuyan and Wang, Ziyi and Zhang, He and Rao, Yongming and Liu, Fangfu and Zhang, Yani and Zhao, Ruowen and Wang, Oran and others},
-journal={arXiv preprint arXiv:2604.07430},
-year={2026}
-}
+@techreport{tencent2026hyembodiedvlm10,
+  title       = {Hy-Embodied-VLM-1.0: Efficient Physical-World Agents},
+  author      = {Team, HY and Wang, Ziyi and Yu, Xumin and Ling, Yonggen and Li, Yunheng and Rao, Yongming and Wang, Oran and Gao, Mingqi and Zhou, Yuchen and Liang, Yves and others},
+  year        = {2026},
+  institution = {Tencent Robotics X, Hy Vision Team, and Futian Laboratory},
+  url         = {https://github.com/Tencent-Hunyuan/HY-Embodied}
 }
 ```
 
-
 ## 🙏 Acknowledgements
 
-We thank the Hugging Face community for their support and the open-source contributions that made this implementation possible.
+Built on the [Hy3](https://huggingface.co/tencent/Hy3) MoE LLM backbone and the [Hy-ViT2](https://huggingface.co/tencent/HunyuanOCR) vision encoder. We thank the broader Tencent Hunyuan and Robotics X communities for infrastructure, evaluation resources, and design feedback.

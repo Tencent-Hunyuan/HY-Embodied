@@ -1,0 +1,55 @@
+# hy-embodied-vllm-plugin
+#
+# In-tree vLLM plugin for Hy-Embodied-VLM-1.0.
+# Ship inside the model release repo; install with `pip install -e .`.
+#
+# When vLLM starts (`vllm serve` or programmatic `LLM(...)`), it discovers
+# this plugin via the `vllm.general_plugins` entry-point and calls
+# `hy_embodied_vllm:register`, which registers the HYV3 model + parsers into
+# vLLM's global registries.
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hy-embodied-vllm-plugin"
+version = "0.1.0"
+description = "vLLM plugin for Hy-Embodied-VLM-1.0 (Tencent Hunyuan)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Tencent Hunyuan Embodied Team" },
+]
+keywords = ["vllm", "plugin", "hy-embodied", "vlm", "moe"]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# vLLM version pin — tested with 0.14.1; broader ranges may work but not verified.
+# Do NOT install vllm via this plugin: user should `pip install vllm` first;
+# we declare it here for reference but do not force a specific version to
+# avoid dependency-resolver conflicts with the user's environment.
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7", "requests"]
+
+[project.entry-points."vllm.general_plugins"]
+# Registered under the "vllm.general_plugins" group so vLLM auto-loads it.
+# The value `hy_embodied_vllm:register` points to the `register()` function
+# in this package's __init__.py — that function does all the ModelRegistry
+# and parser registrations.
+register_hy_embodied = "hy_embodied_vllm:register"
+
+[tool.setuptools.packages.find]
+include = ["hy_embodied_vllm*"]
+
+[tool.setuptools.package-data]
+hy_embodied_vllm = ["*.py", "parsers/*.py"]

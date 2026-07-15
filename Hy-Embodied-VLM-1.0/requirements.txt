@@ -1,0 +1,11 @@
+# Top-level requirements for Hy-Embodied-VLM-1.0.
+#
+# See inference/transformers/requirements.txt and inference/vllm/pyproject.toml
+# for path-specific deps.
+#
+# Recommended install (via uv, picks CUDA build automatically):
+#   uv pip install torch==2.9.1 torchvision==0.24.1 --torch-backend auto
+# Default PyPI `torch` ships CUDA 13 wheels, which will silently disable
+# GPU on CUDA 12.x drivers.
+
+torch==2.9.1

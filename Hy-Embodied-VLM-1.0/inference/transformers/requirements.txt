@@ -1,0 +1,21 @@
+# HuggingFace transformers inference for Hy-Embodied-VLM-1.0.
+#
+# NOTE: this path uses `trust_remote_code=True` — the model files
+# (`modeling_hy_v3_vl.py`, etc.) are shipped inside the weights repo
+# rather than being merged into upstream `transformers`. No fork of
+# `transformers` is required.
+#
+# Versions below are pinned to what we validated end-to-end. To install:
+#
+#   uv pip install torch==2.9.1 torchvision==0.24.1 --torch-backend auto
+#   uv pip install -r requirements.txt
+#
+# The `--torch-backend auto` step is important: default PyPI `torch` ships
+# CUDA 13 wheels — on CUDA 12.x drivers this will silently give you
+# `torch.cuda.is_available() == False`. See the README for details.
+
+transformers==4.57.6
+accelerate>=0.30
+torch==2.9.1
+torchvision==0.24.1
+pillow>=10.0
