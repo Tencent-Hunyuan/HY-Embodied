@@ -287,4 +287,4 @@ If you find our work useful for your research and applications, please cite our 
 
 ## 🙏 Acknowledgements
 
-Built on the [Hy3](https://huggingface.co/tencent/Hy3) MoE LLM backbone and the [Hy-ViT2](https://huggingface.co/tencent/HunyuanOCR) vision encoder. We thank the broader Tencent Hunyuan and Robotics X communities for infrastructure, evaluation resources, and design feedback.
+Built on the [Hy3](https://huggingface.co/tencent/Hy3) MoE LLM backbone and the [Hy-ViT2](https://huggingface.co/tencent/HunyuanOCR) vision encoder. We thank the broader Tencent Hunyuan and Robotics X communities for infrastructure, evaluation resources, and design feedback. 
