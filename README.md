@@ -264,14 +264,10 @@ Hy-Embodied-VLM-1.0 powers closed-loop navigation with a single model for langua
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/Tencent-Hunyuan/HY-Embodied/blob/master/Hy-Embodied-VLM-1.0/figures/r2r-ce-instruction-following-navigation.mp4">
-        <img src="./Hy-Embodied-VLM-1.0/figures/r2r-ce-instruction-following-navigation-preview.png" alt="Play the R2R-CE instruction-following navigation demo" width="100%">
-      </a>
+      <img src="./Hy-Embodied-VLM-1.0/figures/r2r-ce-instruction-following-navigation.webp" alt="R2R-CE instruction-following navigation demo" width="100%">
     </td>
     <td>
-      <a href="https://github.com/Tencent-Hunyuan/HY-Embodied/blob/master/Hy-Embodied-VLM-1.0/figures/matterport3d-object-goal-navigation.mp4">
-        <img src="./Hy-Embodied-VLM-1.0/figures/matterport3d-object-goal-navigation-preview.png" alt="Play the Matterport3D object-goal navigation demo" width="100%">
-      </a>
+      <img src="./Hy-Embodied-VLM-1.0/figures/matterport3d-object-goal-navigation.webp" alt="Matterport3D object-goal navigation demo" width="100%">
     </td>
   </tr>
 </table>
