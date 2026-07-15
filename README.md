@@ -268,7 +268,7 @@ If you find our work useful for your research and applications, please cite our 
 ```bibtex
 @article{tencent2026hyembodiedvlm10,
   title         = {Hy-Embodied-VLM-1.0: Efficient Physical-World Agents},
-  author        = {Team, HY and Wang, Ziyi and Yu, Xumin and Ling, Yonggen and Li, Yunheng and Rao, Yongming and Wang, Oran and Gao, Mingqi and Zhou, Yuchen and Liang, Yves and others},
+  author        = {Wang, Ziyi and Yu, Xumin and Rao, Yongming and Ling, Yonggen and Li, Yunheng and Wang, Oran and Gao, Mingqi and Zhou, Yuchen and Liang, Yves and Liu, Zuyan and others},
   year          = {2026},
   eprint        = {2607.12894},
   archivePrefix = {arXiv},
