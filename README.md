@@ -263,7 +263,7 @@ Released under **Apache License 2.0**. See [`LICENSE`](./LICENSE) and [`Hy-Embod
 
 ## 🏷️ Citation
 
-If you find our work useful for your research and applications, please cite our tech report using this BibTeX:
+If you find our work useful for your research and applications, please cite our tech reports using this BibTeX:
 
 ```bibtex
 @article{tencent2026hyembodiedvlm10,
@@ -273,6 +273,15 @@ If you find our work useful for your research and applications, please cite our 
   eprint        = {2607.12894},
   archivePrefix = {arXiv},
   url           = {https://arxiv.org/abs/2607.12894}
+}
+
+@article{tencent2026hyembodied05,
+  title         = {HY-Embodied-0.5: Embodied Foundation Models for Real-World Agents},
+  author        = {Team, HY and Yu, Xumin and Liu, Zuyan and Wang, Ziyi and Zhang, He and Rao, Yongming and Liu, Fangfu and Zhang, Yani and Zhao, Ruowen and Wang, Oran and others},
+  year          = {2026},
+  eprint        = {2604.07430},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2604.07430}
 }
 ```
 
