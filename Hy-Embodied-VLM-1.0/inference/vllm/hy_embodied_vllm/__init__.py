@@ -2,7 +2,7 @@
 hy_embodied_vllm — vLLM plugin for Hy-Embodied-VLM-1.0 (Tencent Hunyuan)
 
 Provides:
-  - Model class HYV3VLForConditionalGeneration (VL, 43B MoE) via ModelRegistry
+  - Model class HYV3VLForConditionalGeneration (VL, 30B-A3B MoE) via ModelRegistry
   - Model class HYV3ForCausalLM (LLM base) via ModelRegistry
   - Tool parser 'hy_v3' via ToolParserManager
   - Reasoning parser 'hunyuan_v3' via ReasoningParserManager
